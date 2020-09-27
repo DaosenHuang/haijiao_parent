@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>resource_management</artifactId>
+    <artifactId>personnel_management</artifactId>
 
 
 </project>

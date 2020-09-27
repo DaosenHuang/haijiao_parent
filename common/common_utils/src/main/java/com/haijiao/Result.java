@@ -26,7 +26,7 @@ public class Result {
     public static Result ok(){
         Result r=new Result();
         r.setSuccess(true);
-        r.setCode(200);
+        r.setCode(20000);
         r.setMessage("成功！");
         return r; }
     //失败静态方法

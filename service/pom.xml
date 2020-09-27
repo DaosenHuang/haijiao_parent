@@ -12,10 +12,25 @@
     <artifactId>service</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>service_resource_management</module>
+        <module>personnel_management</module>
+        <module>project_management</module>
     </modules>
 
     <dependencies>
+
+        <!-- fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.32</version>
+        </dependency>
+        <!-- jackson-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.6.4</version>
+        </dependency>
+
         <!--引入公共模块的service_base服务-->
         <dependency>
             <groupId>com.ecust</groupId>

@@ -59,15 +59,16 @@ public class EmployeeController {
     public Result pageListEmployee(@PathVariable long current,
                                    @PathVariable long limit){
        //创建page对象
-        Page<Employee> pageEmployee = new Page<>(1,3);
+        Page<Employee> pageEmployee = new Page<>(current, limit);
+
 
         //调用方法实现分页
         //调用方法的时候，底层封装，把分页所有数据封装到pageEmployee对象里面
         employeeService.page(pageEmployee,null);
-        long total = pageEmployee.getTotal();
+        long total = pageEmployee.getTotal(); // 总的记录数
         List<Employee> records = pageEmployee.getRecords(); //获取list集合
 
-        return Result.ok().data("rows",records);
+        return Result.ok().data("rows", records);
     }
 
     //添加员工方法
@@ -92,6 +93,7 @@ public class EmployeeController {
     }
 
     //修改员工功能
+    @ApiOperation(value="修改员工")
     @PostMapping("updateEmployee")
     public Result updateEmployee(@RequestBody Employee employee){
         boolean flag = employeeService.updateById(employee);

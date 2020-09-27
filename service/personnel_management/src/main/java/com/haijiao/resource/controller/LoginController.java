@@ -6,12 +6,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/service/user")
-@CrossOrigin
+@CrossOrigin //解决跨域问题
 public class LoginController {
 
     //login 方法
     @PostMapping("login")
     public Result login(){
+        System.out.printf("into that ...");
         return Result.ok().data("token", "admin");
     }
 

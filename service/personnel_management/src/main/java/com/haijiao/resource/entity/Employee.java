@@ -1,5 +1,6 @@
 package com.haijiao.resource.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.*;
 
 import java.util.Date;
