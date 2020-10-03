@@ -1,14 +1,18 @@
 package com.haijiao.resource.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.haijiao.Result;
 import com.haijiao.resource.entity.Employee;
+import com.haijiao.resource.entity.vo.EmployeeQuery;
 import com.haijiao.resource.service.EmployeeService;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -70,6 +74,45 @@ public class EmployeeController {
 
         return Result.ok().data("rows", records);
     }
+
+    //多条件组合查询带分页
+    @PostMapping("pageEmployeeCondition/{current}/{limit}")
+    @ApiOperation(value="条件分页查询")
+    public Result pageEmployeeCondition(@PathVariable long current,@PathVariable long limit,
+                                        @RequestBody(required = false) EmployeeQuery employeeQuery) {
+        //创建page对象
+        Page<Employee> pageEmployee = new Page<>(current, limit);
+        //调用方法实现条件查询分页
+        //构建条件
+        QueryWrapper<Employee> wrapper = new QueryWrapper<>();
+        //mybatis动态sql
+        //判断条件是否为空，如果不为空拼接条件
+        String name = employeeQuery.getName();
+        String jobNumber = employeeQuery.getJobNumber();
+        Integer department = employeeQuery.getDepartment();
+        Integer post = employeeQuery.getPost();
+        if (!StringUtils.isEmpty(name)) {
+            //构建条件
+            wrapper.like("name", name);
+        }
+        if (!StringUtils.isEmpty(jobNumber)) {
+            wrapper.eq("jobNumber", jobNumber);
+        }
+        if (!StringUtils.isEmpty(department)) {
+            //构建条件
+            wrapper.eq("department", department);
+        }
+        if (!StringUtils.isEmpty(post)) {
+            wrapper.eq("post", post);
+        }
+            //wrapper
+            employeeService.page(pageEmployee, wrapper);
+            long total = pageEmployee.getTotal();//总记录数
+            List<Employee> records = pageEmployee.getRecords(); //数据list集合
+            return Result.ok().data("total", total).data("rows", records);
+    }
+
+
 
     //添加员工方法
     @PostMapping("addEmployee")

@@ -19,7 +19,7 @@ public class LoginController {
     //info 2020-09-23哈哈
     @GetMapping("info")
     public Result info(){
-        return Result.ok().data("roles","[admin]").data("avatar", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600789647565&di=0cfe0118b40e118fb16e783ceda94794&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201410%2F09%2F20141009224754_AswrQ.jpeg");
+        return Result.ok().data("roles","[admin]").data("avatar","https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1601463159699&di=59b543cea7f4f52faaaf224d4a0c2351&imgtype=0&src=http%3A%2F%2Ft8.baidu.com%2Fit%2Fu%3D757094506%2C3220089312%26fm%3D79%26app%3D86%26f%3DJPEG%3Fw%3D1280%26h%3D1584");
     }
 
 }
