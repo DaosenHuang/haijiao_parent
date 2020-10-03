@@ -1,8 +1,9 @@
 package com.haijiao.resource.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -25,6 +26,12 @@ import lombok.experimental.Accessors;
 public class EcuModule implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+
+    @ApiModelProperty(value="逻辑删除：1已删除，0未删除")
+    @TableLogic  //表示做逻辑删除
+    private boolean isDeleted;
+
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
@@ -76,9 +83,6 @@ public class EcuModule implements Serializable {
 
     @ApiModelProperty(value="模块编号")
     private String ecuRecename;
-
-    @ApiModelProperty(value="操作时间")
-    private Date ecuOptdt;
 
     @ApiModelProperty(value="空")
     private Boolean ecuStatus;
@@ -134,11 +138,17 @@ public class EcuModule implements Serializable {
     @ApiModelProperty(value="空")
     private String ecuStatisticsinfo;
 
-    @ApiModelProperty(value="模块编号")
+    @ApiModelProperty(value="是否关闭操作记录")
     private Boolean ecuIsgbjl;
 
-    @ApiModelProperty(value="模块编号")
-    private String ecuModulecol;
+
+    @ApiModelProperty(value="创建时间")
+    @TableField(fill = FieldFill.INSERT)
+    private Date createTime;
+
+    @ApiModelProperty(value="修改时间")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Date updateTime;
 
 
 }
