@@ -12,7 +12,7 @@ public class EcuModuleQuery {
     private String ecuNum;
 
     @ApiModelProperty(value="根据类型查询")
-    private Integer ecuType; //注意这里使用的的时String类型，前端穿过来的数据无需进行类型转换
+    private String ecuType; //注意这里使用的的时String类型，前端穿过来的数据无需进行类型转换
 
 
 }
