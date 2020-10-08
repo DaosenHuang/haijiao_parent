@@ -26,6 +26,7 @@ import java.util.List;
  * @since 2020-08-31
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/resource/employee")
 public class EmployeeController {
     //注入service
@@ -46,7 +47,7 @@ public class EmployeeController {
     //删除员工方法
     @ApiOperation(value="逻辑删除员工")
     @DeleteMapping("{id}")
-    public Result removeEmployee(@ApiParam(name="id",value="员工id",required=true) @PathVariable String id){
+    public Result removeEmployee(@ApiParam(name="id",value="员工id",required=true) @PathVariable Integer id){
         boolean flag=employeeService.removeById(id);
         if (flag) {
             return Result.ok();
@@ -64,6 +65,8 @@ public class EmployeeController {
                                    @PathVariable long limit){
        //创建page对象
         Page<Employee> pageEmployee = new Page<>(current, limit);
+
+
 
 
         //调用方法实现分页
@@ -96,7 +99,7 @@ public class EmployeeController {
             wrapper.like("name", name);
         }
         if (!StringUtils.isEmpty(jobNumber)) {
-            wrapper.eq("jobNumber", jobNumber);
+            wrapper.eq("job_number", jobNumber);
         }
         if (!StringUtils.isEmpty(department)) {
             //构建条件

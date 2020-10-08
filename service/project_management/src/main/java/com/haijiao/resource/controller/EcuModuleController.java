@@ -46,7 +46,7 @@ public class EcuModuleController {
     //删除模块方法
     @ApiOperation(value="逻辑删除模块")
     @DeleteMapping("{id}")
-    public Result removeEcuModule(@ApiParam(name="id",value="模块id",required=true) @PathVariable String id){
+    public Result removeEcuModule(@ApiParam(name="id",value="模块id",required=true) @PathVariable Integer id){
         boolean flag=ecuModuleService.removeById(id);
         if (flag) {
             return Result.ok();
@@ -60,7 +60,7 @@ public class EcuModuleController {
     //添加模块方法
     @PostMapping("addEcuModule")
     @ApiOperation(value="添加模块")
-    public Result addEmployee(@RequestBody EcuModule ecuModule) {
+    public Result addEcuModule(@RequestBody EcuModule ecuModule) {
         boolean save = ecuModuleService.save(ecuModule);
         if (save) {
             return Result.ok();
@@ -75,7 +75,7 @@ public class EcuModuleController {
     //limit 每页记录数
     @ApiOperation(value="分页查询")
     @GetMapping("pageEmployee/{current}/{limit}")
-    public Result pageListEmployee(@PathVariable long current,
+    public Result pageListEcuModule(@PathVariable long current,
                                    @PathVariable long limit){
         //创建page对象
         Page<EcuModule> pageEcuModule = new Page<>(current, limit);
@@ -126,7 +126,7 @@ public class EcuModuleController {
 
     //修改员工功能
     @ApiOperation(value="修改模块")
-    @PostMapping("updateEmployee")
+    @PostMapping("updateEcuModule")
     public Result updateEcuModule(@RequestBody EcuModule module){
         boolean flag = ecuModuleService.updateById(module);
         if(flag) {
@@ -136,8 +136,12 @@ public class EcuModuleController {
         }
     }
 
-
-
-
+    //根据员工ID查询
+    @ApiOperation(value="根据模块id查询")
+    @GetMapping("searchEcuModule/{id}")
+    public Result searchEcuModule(@PathVariable Integer id){
+        EcuModule ecuModule = ecuModuleService.getById(id);
+        return Result.ok().data("ecuModule",ecuModule);
+    }
 }
 

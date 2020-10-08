@@ -28,11 +28,6 @@ public class EcuModule implements Serializable {
     private static final long serialVersionUID = 1L;
 
 
-    @ApiModelProperty(value="逻辑删除：1已删除，0未删除")
-    @TableLogic  //表示做逻辑删除
-    private boolean isDeleted;
-
-
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
@@ -45,7 +40,7 @@ public class EcuModule implements Serializable {
     @ApiModelProperty(value="排序")
     private Integer ecuSort;
 
-    @ApiModelProperty(value="对应表")
+    @ApiModelProperty(value="对应表名")
     private String ecuTable;
 
     @ApiModelProperty(value="相关条件")
@@ -81,10 +76,11 @@ public class EcuModule implements Serializable {
     @ApiModelProperty(value="空")
     private String ecuReceid;
 
-    @ApiModelProperty(value="模块编号")
+    @ApiModelProperty(value="针对人员")
     private String ecuRecename;
 
-    @ApiModelProperty(value="空")
+    @TableLogic  //表示做逻辑删除
+    @ApiModelProperty(value="模块状态：1已删除，0未删除")
     private Boolean ecuStatus;
 
     @ApiModelProperty(value="是否可录入")
@@ -96,8 +92,8 @@ public class EcuModule implements Serializable {
     @ApiModelProperty(value="多行子表名称")
     private String ecuNames;
 
-    @ApiModelProperty(value="状态值设置")
-    private String ecuStatusstr;
+    @ApiModelProperty(value="模块说明")
+    private String ecuState;
 
     @ApiModelProperty(value="是否不显示查阅记录")
     private Boolean ecuIsgbcy;

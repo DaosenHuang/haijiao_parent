@@ -32,9 +32,7 @@ public class Employee implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    @ApiModelProperty(value="逻辑删除：1已删除，0未删除")
-    @TableLogic  //表示做逻辑删除
-    private boolean isDeleted;
+
 
     @ApiModelProperty(value="员工姓名")
     private String name;
@@ -45,6 +43,7 @@ public class Employee implements Serializable {
     @ApiModelProperty(value="邮箱")
     private String email;
 
+    @TableLogic  //表示做逻辑删除
     @ApiModelProperty(value="员工状态：离职：0，在职：1")
     private Integer status;
 
