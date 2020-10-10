@@ -10,6 +10,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>project_management</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>com.gitee.sunchenbin.mybatis.actable</groupId>
+            <artifactId>mybatis-enhance-actable</artifactId>
+            <version>1.2.1.RELEASE</version>
+        </dependency>
+    </dependencies>
+
 
 
 </project>
