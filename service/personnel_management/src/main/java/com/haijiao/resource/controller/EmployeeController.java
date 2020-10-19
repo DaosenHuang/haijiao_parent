@@ -4,6 +4,7 @@ package com.haijiao.resource.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.haijiao.Result;
+import com.haijiao.resource.client.ModuleClient;
 import com.haijiao.resource.entity.Employee;
 import com.haijiao.resource.entity.vo.EmployeeQuery;
 import com.haijiao.resource.service.EmployeeService;
@@ -26,12 +27,15 @@ import java.util.List;
  * @since 2020-08-31
  */
 @RestController
-@CrossOrigin
-@RequestMapping("/resource/employee")
+@RequestMapping("/person-service/employee")
 public class EmployeeController {
     //注入service
     @Autowired
     private EmployeeService employeeService;
+
+    @Autowired
+    private ModuleClient moduleClient;
+
 
     //查询员工表所有数据
     //rest风格
@@ -48,12 +52,16 @@ public class EmployeeController {
     @ApiOperation(value="逻辑删除员工")
     @DeleteMapping("{id}")
     public Result removeEmployee(@ApiParam(name="id",value="员工id",required=true) @PathVariable Integer id){
+
+        moduleClient.removeEcuModule(id);
         boolean flag=employeeService.removeById(id);
         if (flag) {
             return Result.ok();
         } else {
             return Result.error();
         }
+
+
     }
 
     //3 分页查询员工的方法

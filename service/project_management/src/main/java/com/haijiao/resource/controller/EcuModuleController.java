@@ -24,8 +24,7 @@ import java.util.List;
  * @since 2020-10-03
  */
 @RestController
-@CrossOrigin
-@RequestMapping("/resource/ecu-module")
+@RequestMapping("/module-service/ecu-module")
 public class EcuModuleController {
 
     //注入service

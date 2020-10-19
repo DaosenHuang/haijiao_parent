@@ -5,8 +5,7 @@ import com.haijiao.Result;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/service/employee")
-@CrossOrigin //解决跨域问题
+@RequestMapping("/person-service/employee")
 public class LoginController {
 
     //login 方法

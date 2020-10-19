@@ -15,6 +15,7 @@
         <module>personnel_management</module>
         <module>project_management</module>
         <module>auto_create_table</module>
+        <module>personnel_permission_management</module>
     </modules>
 
     <dependencies>
@@ -63,15 +64,16 @@
         </dependency>-->
 
         <!--服务注册-->
-        <!-- <dependency>
+         <dependency>
              <groupId>org.springframework.cloud</groupId>
              <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-         </dependency>-->
+         </dependency>
+
         <!--服务调用-->
-        <!-- <dependency>
+        <dependency>
              <groupId>org.springframework.cloud</groupId>
              <artifactId>spring-cloud-starter-openfeign</artifactId>
-         </dependency>-->
+         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
