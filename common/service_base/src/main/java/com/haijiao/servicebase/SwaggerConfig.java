@@ -34,7 +34,7 @@ public class SwaggerConfig {
                 .title("海骄管理系统在线开发文档")
                 .description("本文档描述了服务接口定义")
                 .version("1.0")
-                .contact(new Contact("java", "http://atguigu.com", "1123@qq.com"))
+                .contact(new Contact("java", "http://haijaio.com", "1123@qq.com"))
                 .build();
     }
 }
