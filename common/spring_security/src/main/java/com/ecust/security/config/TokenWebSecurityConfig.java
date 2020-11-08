@@ -26,7 +26,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  * @since 2019-11-18
  */
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity  //开启权限控制
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
 

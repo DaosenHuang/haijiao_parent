@@ -2,7 +2,7 @@ package com.ecust.security.filter;
 
 import com.ecust.security.security.TokenManager;
 import com.haijiao.ResponseUtil;
-import com.haijiao.Result;
+import com.haijiao.R;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -53,13 +53,13 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
         try {
             authentication = getAuthentication(req);
         } catch (Exception e) {
-            ResponseUtil.out(res, Result.error());
+            ResponseUtil.out(res, R.error());
         }
 
         if (authentication != null) {
             SecurityContextHolder.getContext().setAuthentication(authentication);
         } else {
-            ResponseUtil.out(res, Result.error());
+            ResponseUtil.out(res, R.error());
         }
         chain.doFilter(req, res);
     }

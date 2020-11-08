@@ -2,7 +2,7 @@ package com.ecust.security.security;
 
 
 import com.haijiao.ResponseUtil;
-import com.haijiao.Result;
+import com.haijiao.R;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
@@ -38,7 +38,7 @@ public class TokenLogoutHandler implements LogoutHandler {
             String userName = tokenManager.getUserFromToken(token);
             redisTemplate.delete(userName);
         }
-        ResponseUtil.out(response, Result.ok());
+        ResponseUtil.out(response, R.ok());
     }
 
 }

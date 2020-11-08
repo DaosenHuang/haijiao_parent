@@ -2,7 +2,7 @@ package com.ecust.security.security;
 
 
 import com.haijiao.ResponseUtil;
-import com.haijiao.Result;
+import com.haijiao.R;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
@@ -25,6 +25,6 @@ public class UnauthorizedEntryPoint implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request, HttpServletResponse response,
                          AuthenticationException authException) throws IOException, ServletException {
 
-        ResponseUtil.out(response, Result.error());
+        ResponseUtil.out(response, R.error());
     }
 }

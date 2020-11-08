@@ -1,7 +1,7 @@
 package com.ecust.security.filter;
 
 import com.haijiao.ResponseUtil;
-import com.haijiao.Result;
+import com.haijiao.R;
 
 import com.ecust.security.entity.SecurityUser;
 import com.ecust.security.entity.User;
@@ -74,7 +74,7 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
         String token = tokenManager.createToken(user.getCurrentUserInfo().getUsername());
         redisTemplate.opsForValue().set(user.getCurrentUserInfo().getUsername(), user.getPermissionValueList());
 
-        ResponseUtil.out(res, Result.ok().data("token", token));
+        ResponseUtil.out(res, R.ok().data("token", token));
     }
 
     /**
@@ -88,6 +88,6 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                               AuthenticationException e) throws IOException, ServletException {
-        ResponseUtil.out(response, Result.error());
+        ResponseUtil.out(response, R.error());
     }
 }
