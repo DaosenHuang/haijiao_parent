@@ -17,6 +17,7 @@
 
 
         <module>service_detection</module>
+        <module>service_file</module>
     </modules>
 
     <dependencies>

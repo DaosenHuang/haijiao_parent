@@ -78,7 +78,6 @@ public class SteelExcavationDetection implements Serializable {
     private String earthResistivity;
 
 
-
     @ApiModelProperty(value = "植物根系：1无或很少；2中等； 3茂盛")
     private Integer plantRoot;
 
@@ -89,10 +88,10 @@ public class SteelExcavationDetection implements Serializable {
     private Integer soilTightness;
 
     @ApiModelProperty(value = "土壤颗粒组划分： 1粘粒组； 2粉粒组； 3 沙粒组； 4 砾石组； 5 卵（碎）石组； 6块石")
-    private Integer soilParticleDevide;
+    private Integer soilParticleDivide;
 
     @ApiModelProperty(value = "土壤分层描述")
-    private String soilLayerDiscription;
+    private String soilLayerDescription;
 
     @ApiModelProperty(value = "土壤干湿度： 1干； 2润； 3 潮； 4湿； 5 水")
     private Integer soilHumidity;
