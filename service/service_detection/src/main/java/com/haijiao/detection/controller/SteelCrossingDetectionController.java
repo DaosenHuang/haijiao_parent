@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/detection/steel-crossing-detections")
+
 public class SteelCrossingDetectionController {
 
     @Autowired

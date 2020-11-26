@@ -1,18 +1,21 @@
 package com.haijiao.project.entity;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.sql.Blob;
 import java.io.Serializable;
+import java.util.List;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import springfox.documentation.spring.web.json.Json;
 
 /**
  * <p>
@@ -20,33 +23,24 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author hy
- * @since 2020-10-26
+ * @since 2020-11-26
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="File对象", description="")
-public class File implements Serializable {
+@ApiModel(value="AuditSetting对象", description="")
+public class AuditSetting implements Serializable {
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    @ApiModelProperty(value = "文件名")
-    private String name;
+    @ApiModelProperty(value = "审核类型")
+    private String auditType;
 
-    @ApiModelProperty(value = "文件类型")
-    private String type;
-
-    @ApiModelProperty(value = "文件字节数")
-    private String size;
-
-    @ApiModelProperty(value = "二进制文件数据")
-    private Blob data;
-
-    @ApiModelProperty(value = "对文件的描述，备注，")
-    private String discription;
+    @ApiModelProperty(value = "审核人")
+    private List<Integer> auditors;
 
     @ApiModelProperty(value = "创建日期")
     @TableField(fill = FieldFill.INSERT)
@@ -54,7 +48,7 @@ public class File implements Serializable {
 
     @ApiModelProperty(value = "修改日期")
     @TableField(fill = FieldFill.INSERT)
-    private Date gmtModified;
+    private Date gmtUpdated;
 
 
 }

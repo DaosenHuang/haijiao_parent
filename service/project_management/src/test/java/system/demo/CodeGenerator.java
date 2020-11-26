@@ -24,7 +24,7 @@ public class CodeGenerator {
         String projectPath = System.getProperty("user.dir");
         gc.setOutputDir("D:\\haijiao_parent\\service\\project_management" + "/src/main/java");
 
-        gc.setAuthor("testjava");
+        gc.setAuthor("hy");
         gc.setOpen(false); //生成后是否打开资源管理器
         gc.setFileOverride(false); //重新生成时文件是否覆盖
 
@@ -39,16 +39,16 @@ public class CodeGenerator {
 
         // 3、数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://localhost:3306/haijiao_resource?serverTimezone=GMT%2B8");
+        dsc.setUrl("jdbc:mysql://139.224.81.237:3306/project_management?serverTimezone=GMT%2B8");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("Dan961030");
+        dsc.setPassword("12345678");
         dsc.setDbType(DbType.MYSQL);
         mpg.setDataSource(dsc);
 
         // 4、包配置
         PackageConfig pc = new PackageConfig();
-        pc.setModuleName("resource"); //模块名
+        pc.setModuleName("project"); //模块名
         //包  com.atguigu.eduservice
         pc.setParent("com.haijiao");
         //包  com.atguigu.eduservice.controller
@@ -61,7 +61,7 @@ public class CodeGenerator {
         // 5、策略配置
         StrategyConfig strategy = new StrategyConfig();
 
-        strategy.setInclude("ecu_module");
+        strategy.setInclude("audit_setting");
 
         strategy.setNaming(NamingStrategy.underline_to_camel);//数据库表映射到实体的命名策略
         strategy.setTablePrefix(pc.getModuleName() + "_"); //生成实体时去掉表前缀

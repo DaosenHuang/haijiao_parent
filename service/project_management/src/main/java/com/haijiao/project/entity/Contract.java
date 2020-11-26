@@ -14,6 +14,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * <p>
@@ -43,7 +44,7 @@ public class Contract implements Serializable {
     private Date acceptedDate;
 
     @ApiModelProperty(value = "受理编号")
-    private String acceptedId;
+    private String acceptedNumber;
 
     @ApiModelProperty(value = "检测地点")
     private String detectionLocation;
@@ -103,7 +104,7 @@ public class Contract implements Serializable {
     //------附件------
     @ApiModelProperty(value = "委托单-附件")
     @TableField(exist=false)
-    private List<File> files;
+    private List<MultipartFile> files;
 
 
     //-------委托单_附件------

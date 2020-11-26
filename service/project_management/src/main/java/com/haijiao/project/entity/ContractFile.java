@@ -35,19 +35,12 @@ public class ContractFile implements Serializable {
     @ApiModelProperty(value = "文件类型")
     private String type;
 
-    @ApiModelProperty(value = "文件id")
-    private Integer fileId;
+    @ApiModelProperty(value = "文件url地址")
+    private String fileUrl;
 
     @ApiModelProperty(value = "委托单id")
     private Integer contractId;
 
-    @ApiModelProperty(value = "创建日期")
-    @TableField(fill = FieldFill.INSERT)
-    private Date gmtCreate;
-
-    @ApiModelProperty(value = "修改日期")
-    @TableField(fill = FieldFill.INSERT)
-    private Date gmtModified;
 
 
 }

@@ -1,6 +1,6 @@
 package com.haijiao.project.mapper;
 
-import com.haijiao.project.entity.File;
+import com.haijiao.project.entity.AuditSetting;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author hy
- * @since 2020-10-26
+ * @since 2020-11-26
  */
-public interface FileMapper extends BaseMapper<File> {
+public interface AuditSettingMapper extends BaseMapper<AuditSetting> {
 
 }

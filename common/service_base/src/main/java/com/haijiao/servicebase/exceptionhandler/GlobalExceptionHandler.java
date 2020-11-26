@@ -1,6 +1,7 @@
 package com.haijiao.servicebase.exceptionhandler;
 
 
+
 import com.haijiao.R;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,3 +18,4 @@ public class GlobalExceptionHandler {
         return R.error().message("执行了全局异常！");
     }
 }
+

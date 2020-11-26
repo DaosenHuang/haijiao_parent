@@ -72,7 +72,7 @@ public class SteelExcavationDetection implements Serializable {
     private Float phValue;
 
     @ApiModelProperty(value = "腐蚀性环境调查：地形、地貌、地物描述")
-    private String landform;
+    private String landForm;
 
     @ApiModelProperty(value = "土壤电阻率：纵向,横向")
     private String earthResistivity;

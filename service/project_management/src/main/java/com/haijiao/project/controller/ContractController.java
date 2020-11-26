@@ -4,13 +4,11 @@ package com.haijiao.project.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import com.haijiao.R;
-import com.haijiao.project.entity.File;
 import com.haijiao.project.entity.Contract;
 import com.haijiao.project.entity.ContractFile;
 import com.haijiao.project.entity.vo.ContractQuery;
 import com.haijiao.project.service.ContractFileService;
 import com.haijiao.project.service.ContractService;
-import com.haijiao.project.service.FileService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +37,7 @@ public class ContractController {
     @Autowired
     private ContractFileService contractFileService;
 
-    @Autowired
-    private FileService fileService;
+
 
 
 //---1、获取所有正在审核的委托单列表---
@@ -121,14 +118,7 @@ public class ContractController {
         Contract contract = contractService.getById(id); //--第一步--查询到委托单
         List<ContractFile> contractFiles = contractFileService.getContractFileByContractId(id);//--第二步---查询中间表获取对应的文件Id列表
 
-        List<File> files = new ArrayList<>();  //--用来装载查询到的文件---
-        //--第三步：遍历contractFile获取fileId,再查询到file------
-        for (ContractFile contractFile : contractFiles) {
-            Integer fileId = contractFile.getFileId();
-            File file = fileService.getById(fileId);
-            files.add(file);
-        }
-        contract.setFiles(files);//----将查询到的file列表填充到contract对象------
+        contract.setContractFiles(contractFiles);//----将查询到的file列表填充到contract对象------
         return contract;
 
     }

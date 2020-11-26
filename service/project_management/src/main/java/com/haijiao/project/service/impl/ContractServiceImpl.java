@@ -2,25 +2,20 @@ package com.haijiao.project.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.haijiao.project.client.FileClient;
 import com.haijiao.project.entity.Contract;
-import com.haijiao.project.entity.ContractComment;
 import com.haijiao.project.entity.ContractFile;
-import com.haijiao.project.entity.File;
 import com.haijiao.project.entity.vo.ContractQuery;
-import com.haijiao.project.mapper.ContractCommentMapper;
 import com.haijiao.project.mapper.ContractFileMapper;
 import com.haijiao.project.mapper.ContractMapper;
-import com.haijiao.project.mapper.FileMapper;
-import com.haijiao.project.service.ContractCommentService;
 import com.haijiao.project.service.ContractService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.haijiao.project.service.FileService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,7 +36,7 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, Contract> i
     private ContractFileMapper contractFileMapper;
 
     @Autowired
-    private FileMapper fileMapper;
+    private FileClient fileClient;
 
 
 
@@ -64,32 +59,28 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, Contract> i
          //------第一步：先将委托单插入数据库------
          contractMapper.insert(contract);
          Integer contractId = contract.getId(); //获取委托单id
-         //------第二部：获取与委托单关联的文件------
-         for (File file : contract.getFiles()) {
-             //先保存文件，得到id
-             fileMapper.insert(file);
-         }
+         for (int i=0; i<contract.getContractFiles().size(); i++) {
 
-         QueryWrapper<File> queryWrapper=new QueryWrapper<>();
-         queryWrapper.eq("contract_id", contractId);
+             MultipartFile file=contract.getFiles().get(i);
+             ContractFile contractFile=contract.getContractFiles().get(i);
 
-         List<File> files = fileMapper.selectList(queryWrapper);
-
-         for (File file:files) {
-
-             Integer fileId = file.getId();       // 获取文件id
-             String fileType = file.getType();    // 获取文件类型
-
-             ContractFile contractFile = new ContractFile();
+             //先保存文件，得到文件保存地址url
+             String url = fileClient.upload(file);
+             contractFile.setFileUrl(url);
              contractFile.setContractId(contractId);
-             contractFile.setFileId(fileId);
-             contractFile.setType(fileType);
-             //------保存中间表------
              contractFileMapper.insert(contractFile);
 
          }
+
+
+
+
+
+
          return true;
+
      }
+
 
 
 
@@ -168,24 +159,6 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, Contract> i
 
      return contractMapper.selectList(queryWrapper);
 
-/**
-     //-------对查询到的委托单进行遍历，依次查出与之关联的文件-------
-     for (Contract contract:contractList) {
-         Integer contractId = contract.getId();  //---第一步：获取委托单ID------
-         QueryWrapper<ContractFile> queryWrapper1 = new QueryWrapper<>(); //----构建条件----
-         queryWrapper1.eq("contractId", contractId); //---第二步： 根据委托单ID查找contractFile中间表----
-
-         List<File> fileList = new ArrayList<>(); //--- 列表用来存储查询到的与委托单相关联的文件-----
-          for (ContractFile contractFile: contractFileMapper.selectList(queryWrapper1)) {
-              Integer fileId = contractFile.getFileId();
-              fileList.add(fileService.getById(fileId));
-          }
-
-          contract.setFiles(fileList); //----第三步： 将查询到的文件列表封装到contract对象-----
-
-     }
-*/
-
      }
 
 
@@ -202,35 +175,6 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, Contract> i
      queryWrapper.ne("review_status",1);
 
       return contractMapper.selectList(queryWrapper);
-
-      /**
-         //-------对查询到的委托单进行遍历，依次查出与之关联的文件-------
-         for (Contract contractReviewed:contractReviewedList) {
-             Integer contractId = contractReviewed.getId();  //---第一步：获取委托单ID------
-
-             //------第二步：构建条件------
-             QueryWrapper<ContractFile> queryWrapper1 = new QueryWrapper<>(); //----构建查询contractFile条件----
-             queryWrapper1.eq("contractId", contractId);
-
-             QueryWrapper<ContractComment> queryForComment = new QueryWrapper<>(); //构建查询contractComment条件----
-             queryForComment.eq("contractId", contractId);
-
-             // ---将查询到的与委托单关联的评论封装在contract对象---
-             List<ContractComment> contractComments = new ArrayList<>();
-             for (ContractComment contractComment:contractCommentMapper.selectList(queryForComment)){
-                 contractComments.add(contractComment);
-             }
-             contractReviewed.setContractComments(contractComments);
-
-
-             List<File> fileList = new ArrayList<>(); //--- 列表用来存储查询到的与委托单相关联的文件-----
-             for (ContractFile contractFile: contractFileMapper.selectList(queryWrapper1)) {
-                 Integer fileId = contractFile.getFileId();
-                 fileList.add(fileService.getById(fileId));
-             }
-             contractReviewed.setFiles(fileList); //----第三步： 将查询到的文件列表封装到contract对象-----
-         }
-        */
 
      }
 }

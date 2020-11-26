@@ -7,9 +7,10 @@
         <groupId>com.ecust</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
+    <modelVersion>4.0.0</modelVersion>
     <artifactId>service_base</artifactId>
+    <packaging>jar</packaging>
 
     <dependencies>
 
@@ -17,7 +18,7 @@
             <groupId>com.ecust</groupId>
             <artifactId>common_utils</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
+<!--            <scope>compile</scope>-->
         </dependency>
     </dependencies>
 

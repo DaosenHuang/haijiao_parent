@@ -2,20 +2,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <parent>
         <artifactId>haijiao_parent</artifactId>
         <groupId>com.ecust</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
+    <!--service工程-->
+    <modelVersion>4.0.0</modelVersion>
     <artifactId>service</artifactId>
     <packaging>pom</packaging>
+    <version>0.0.1-SNAPSHOT</version>
+
     <modules>
-
         <module>project_management</module>
-
-
         <module>service_detection</module>
         <module>service_file</module>
     </modules>
@@ -43,16 +44,17 @@
         </dependency>
 
         <!--引入统一返回结果服务-->
-      <!--<dependency>
+        <dependency>
             <groupId>com.ecust</groupId>
             <artifactId>common_utils</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-        </dependency>-->
-        <dependency>
+        </dependency>
+
+        <!--<dependency>
             <groupId>com.ecust</groupId>
             <artifactId>haijiao_parent</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+        </dependency>-->
 
         <!--<dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -105,10 +107,13 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
         </dependency>
+        <!--swagger ui-->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
         </dependency>
+
+
 
         <!--lombok用来简化实体类：需要安装lombok插件-->
         <dependency>

@@ -2,12 +2,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <!--包含的子工程-->
     <modules>
         <module>service</module>
         <module>common</module>
         <module>infrastructure</module>
     </modules>
 
+    <!--spring boot提供的父工程-->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -15,22 +18,22 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+    <!--父工程的相关信息-->
     <groupId>com.ecust</groupId>
     <artifactId>haijiao_parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>haijiao_parent</name>
     <packaging>pom</packaging>
-    <description>Demo project for Spring Boot</description>
+    <description>这里是父项目</description>
 
     <!--我就是测试一下推送到远程仓库-->
 
 
     <properties>
         <java.version>14</java.version>
-        <guli.version>0.0.1-SNAPSHOT</guli.version>
         <mybatis-plus.version>3.0.5</mybatis-plus.version>
         <velocity.version>2.0</velocity.version>
-        <swagger.version>2.7.0</swagger.version>
+        <swagger.version>2.9.2</swagger.version>
         <aliyun.oss.version>2.8.3</aliyun.oss.version>
         <jodatime.version>2.10.1</jodatime.version>
         <poi.version>3.17</poi.version>
@@ -210,13 +213,7 @@
     </dependencyManagement>
 
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
+
+
 
 </project>

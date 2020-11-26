@@ -3,11 +3,15 @@ package com.haijiao.file.controller;
 
 import com.haijiao.file.FastDFSFile;
 import com.haijiao.file.utils.FastDFSClient;
+import org.csource.fastdfs.*;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * 描述
@@ -27,10 +31,8 @@ import java.io.IOException;
 // 域名不同 也是跨域  http://www.jd.com  ---> http://www.taobao.com
 //协议一直,端口一致,域名一致就不是跨域  http://www.jd.com:80 --->http://www.jd.com:80 不是跨域
 
-@RestController
-@CrossOrigin//支持跨域
+@RestController("files")
 public class FileController {
-
 
     /**
      * 返回 图片的全路径
@@ -66,4 +68,5 @@ public class FileController {
         }
         return null;
     }
+
 }
