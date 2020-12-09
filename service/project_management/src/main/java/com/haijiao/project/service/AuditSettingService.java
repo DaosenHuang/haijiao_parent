@@ -13,6 +13,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface AuditSettingService extends IService<AuditSetting> {
 
+    //根据审核类型查询审核设置
     AuditSetting searchByAuditType(String auditorType);
+
+    //新增审核设置
+    AuditSetting addAuditSetting(AuditSetting auditSetting);
 
 }

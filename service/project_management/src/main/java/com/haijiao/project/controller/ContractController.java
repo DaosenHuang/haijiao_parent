@@ -1,9 +1,11 @@
 package com.haijiao.project.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import com.haijiao.R;
+import com.haijiao.project.client.FileClient;
 import com.haijiao.project.entity.Contract;
 import com.haijiao.project.entity.ContractFile;
 import com.haijiao.project.entity.vo.ContractQuery;
@@ -11,8 +13,11 @@ import com.haijiao.project.service.ContractFileService;
 import com.haijiao.project.service.ContractService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,6 +33,7 @@ import java.util.Map;
  * @since 2020-10-25
  */
 @RestController
+@Slf4j
 @RequestMapping("/project/contracts")
 public class ContractController {
 
@@ -36,6 +42,8 @@ public class ContractController {
 
     @Autowired
     private ContractFileService contractFileService;
+    @Autowired
+    private FileClient fileClient;
 
 
 
@@ -94,17 +102,24 @@ public class ContractController {
     //----5、 新增委托单------
     @ApiOperation(value = "新增委托单")
     @PostMapping
-    public String addContract(
+    public Contract addContract(
             @ApiParam(name = "contract", value = "委托单对象", required = true)
-            @RequestBody Contract contract){
-        boolean save = contractService.saveAll(contract);
+            @RequestBody Contract contract)
+    {
 
-        if (save) {
-            return "恭喜你，添加委托单成功！";
-        } else {
-            return "很抱歉，添加失败！";
-        }
+       return contractService.saveAll(contract);
+
     }
+
+   /**
+    @PostMapping(value = "test", consumes = MediaType.MULTIPART_FORM_DATA_VALUE) //
+    public String Test(
+           @RequestPart("file") MultipartFile file) {
+
+        return fileClient.upload(file);
+
+    }
+           */
 
 
     //----- 6、根据委托单id查询委托单及其相关联的文件-----
@@ -113,7 +128,7 @@ public class ContractController {
 //    @PostAuthorize("hasAuthority('vip')")
     public Contract getById(
             @ApiParam(name = "id", value = "委托单ID", required = true)
-            @RequestParam String id){
+            @RequestParam Integer id){
 
         Contract contract = contractService.getById(id); //--第一步--查询到委托单
         List<ContractFile> contractFiles = contractFileService.getContractFileByContractId(id);//--第二步---查询中间表获取对应的文件Id列表
@@ -154,8 +169,8 @@ public class ContractController {
 
     //-------更新委托单审核状态------
     @ApiOperation(value = "根据id更新委托单审核状态")
-    @PutMapping
-    public boolean updateContract(
+    @PutMapping("updateStatus")
+    public Contract updateContractStatus(
             @ApiParam(name = "id", value = "委托单id", required = true)
             @RequestParam Integer id,
             @ApiParam(name = "reviewStatus", value = "审核", required = true)
@@ -165,10 +180,32 @@ public class ContractController {
         contract.setId(id);
         contract.setReviewStatus(reviewStatus);
 
-        return contractService.updateById(contract);
-
+        contractService.updateById(contract);
+        return contractService.getById(id);
 
     }
+
+    //----根据审核人id更新个人的审核状态---
+    @ApiOperation(value="根据委托单id审核委托单")
+    @PutMapping("auditing")
+    public Contract auditContract(
+            @ApiParam(name = "contractId", value = "委托单id", required = true)
+            @RequestParam Integer contractId,
+
+            @ApiParam(name="auditorId", value="审核人id", required = true)
+            @RequestParam Integer auditorId,
+
+            @ApiParam(name="opinion", value="审核人意见", required = true)
+            @RequestParam Integer opinion,
+
+            @ApiParam(name="comment", value="审核人评论", required = true)
+            @RequestParam String comment)
+    {
+//
+        return contractService.auditContractById(contractId, auditorId, opinion, comment );
+
+    }
+
 
 
 }

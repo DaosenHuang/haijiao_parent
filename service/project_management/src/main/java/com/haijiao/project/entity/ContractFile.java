@@ -7,11 +7,14 @@ import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import java.util.List;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * <p>
@@ -41,6 +44,17 @@ public class ContractFile implements Serializable {
     @ApiModelProperty(value = "委托单id")
     private Integer contractId;
 
+    @ApiModelProperty(value = "备注")
+    private String description;
 
+
+
+    @ApiModelProperty(value = "创建时间")
+    @TableField(fill = FieldFill.INSERT)
+    private Date gmtCreate;
+
+    @ApiModelProperty(value = "更新时间")
+    @TableField(fill = FieldFill.INSERT)
+    private Date gmtModified;
 
 }

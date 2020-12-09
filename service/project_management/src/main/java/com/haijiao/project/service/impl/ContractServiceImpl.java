@@ -10,13 +10,16 @@ import com.haijiao.project.mapper.ContractFileMapper;
 import com.haijiao.project.mapper.ContractMapper;
 import com.haijiao.project.service.ContractService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -27,6 +30,7 @@ import java.util.List;
  * @since 2020-10-25
  */
 @Service
+@Slf4j
 public class ContractServiceImpl extends ServiceImpl<ContractMapper, Contract> implements ContractService {
 
     @Autowired
@@ -35,8 +39,8 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, Contract> i
     @Autowired
     private ContractFileMapper contractFileMapper;
 
-    @Autowired
-    private FileClient fileClient;
+
+
 
 
 
@@ -49,35 +53,18 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, Contract> i
 
      @Override
      @Transactional
-     public boolean saveAll(Contract contract) {
-
-
-         //  BeanUtils.copyProperties(contract);
-         //        通过插入的封装的对象，调用mabatis plus的insert的方法插入一条数据到数据库，
-         //        然后通过对象的get方法拿到插入数据的id
+     public Contract saveAll(Contract contract) {
 
          //------第一步：先将委托单插入数据库------
          contractMapper.insert(contract);
-         Integer contractId = contract.getId(); //获取委托单id
-         for (int i=0; i<contract.getContractFiles().size(); i++) {
+         Integer contractId=contract.getId();
 
-             MultipartFile file=contract.getFiles().get(i);
-             ContractFile contractFile=contract.getContractFiles().get(i);
-
-             //先保存文件，得到文件保存地址url
-             String url = fileClient.upload(file);
-             contractFile.setFileUrl(url);
+         for (ContractFile contractFile:contract.getContractFiles()) {
              contractFile.setContractId(contractId);
-             contractFileMapper.insert(contractFile);
+                 contractFileMapper.insert(contractFile);
+             }
 
-         }
-
-
-
-
-
-
-         return true;
+         return contract;
 
      }
 
@@ -165,7 +152,6 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, Contract> i
 
      /**
       * 查询所有审核过的委托单列表
-      * @return
      */
 
      @Override
@@ -177,4 +163,32 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, Contract> i
       return contractMapper.selectList(queryWrapper);
 
      }
+
+
+    /**
+     * 根据委托单id审核委托单
+     */
+
+    @Override
+    public Contract auditContractById(Integer contractId, Integer auditorId, Integer opinion, String comment) {
+
+        Contract contract = contractMapper.selectById(contractId);
+        Map<String, Integer> opinions = contract.getOpinions();
+        opinions.put(auditorId.toString(), opinion);
+
+        Map<String, String> comments = contract.getComments();
+
+        //如果第一个人审核，评论为空，需要初始化
+        if (comments == null) {
+            comments = new HashMap<>();
+        }
+
+        comments.put(auditorId.toString(), comment);
+        contract.setOpinions(opinions)    //保存审核意见
+                .setComments(comments); //保存审核评论
+
+        contractMapper.updateById(contract);
+        return contract;
+
+    }
 }

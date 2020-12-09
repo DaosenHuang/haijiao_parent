@@ -1,15 +1,15 @@
 package com.haijiao.project.entity;
 
 import com.alibaba.fastjson.JSON;
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
+
+
 import java.util.Date;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import java.util.List;
 
+import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -26,9 +26,10 @@ import springfox.documentation.spring.web.json.Json;
  * @since 2020-11-26
  */
 @Data
+@TableName(autoResultMap = true)
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="AuditSetting对象", description="")
+@ApiModel(value="AuditSetting对象", description="设置审核人")
 public class AuditSetting implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -36,10 +37,14 @@ public class AuditSetting implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
+    @ApiModelProperty(value="名称")
+    private String name;
+
     @ApiModelProperty(value = "审核类型")
     private String auditType;
 
     @ApiModelProperty(value = "审核人")
+    @TableField(typeHandler = JacksonTypeHandler.class)
     private List<Integer> auditors;
 
     @ApiModelProperty(value = "创建日期")
@@ -48,7 +53,7 @@ public class AuditSetting implements Serializable {
 
     @ApiModelProperty(value = "修改日期")
     @TableField(fill = FieldFill.INSERT)
-    private Date gmtUpdated;
+    private Date gmtModified;
 
 
 }

@@ -22,10 +22,26 @@ public class AuditSettingServiceImpl extends ServiceImpl<AuditSettingMapper, Aud
     @Autowired
     private AuditSettingMapper auditSettingMapper;
 
+    /**
+     * 根据审核类型查找对应的审核设置
+     * @param auditType
+     * @return
+     */
     public AuditSetting searchByAuditType(String auditType) {
         QueryWrapper<AuditSetting> queryWrapper=new QueryWrapper<>();
         queryWrapper.eq("audit_type", auditType);
 
         return auditSettingMapper.selectOne(queryWrapper);
     }
+
+    /**
+     * 新增审核设置
+     */
+    public AuditSetting addAuditSetting(AuditSetting auditSetting) {
+
+        auditSettingMapper.insert(auditSetting);
+        return auditSetting;
+
+    }
+
 }

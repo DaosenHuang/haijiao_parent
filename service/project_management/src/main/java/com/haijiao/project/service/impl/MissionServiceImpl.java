@@ -38,8 +38,7 @@ public class MissionServiceImpl extends ServiceImpl<MissionMapper, Mission> impl
     public boolean addMission(Mission mission) {
 
         missionMapper.insert(mission);
-
-        Integer missionId = mission.getId(); //--- 获取任务单ID------
+        Integer missionId=mission.getId();
 
         //------遍历，与任务单关联的人员保存在MissionEmployee------
         for (MissionUser missionUser : mission.getMissionUserList()) {

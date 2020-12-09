@@ -5,6 +5,7 @@ import com.haijiao.file.FastDFSFile;
 import com.haijiao.file.utils.FastDFSClient;
 import org.csource.fastdfs.*;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.MediaType;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,8 +41,16 @@ public class FileController {
      * @param file 页面的文件对象
      * @return
      */
-    @PostMapping("/upload")
-    public String upload(@RequestParam(value = "file") MultipartFile file) {
+    @PostMapping(value = "/upload" ) //consumes = MediaType.MULTIPART_FORM_DATA_VALUE
+    public String upload(
+            @RequestPart("file") MultipartFile file) {
+
+        System.out.println("什么情况");
+        System.out.println("什么");
+
+
+
+//            @RequestPart("file") MultipartFile file) {
         try {
             //1. 创建图片文件对象(封装)
             //2. 调用工具类实现图片上传
@@ -55,13 +64,7 @@ public class FileController {
             );
             String[] upload = FastDFSClient.upload(fastdfsfile);
 
-            //  upload[0] group1
-            //  upload[1] M00/00/00/wKjThF1aW9CAOUJGAAClQrJOYvs424.jpg
-            //3. 拼接图片的全路径返回
 
-            // http://192.168.211.132:8080/group1/M00/00/00/wKjThF1aW9CAOUJGAAClQrJOYvs424.jpg
-
-            // http://192.168.211.132:8080  +
             return FastDFSClient.getTrackerUrl()+"/"+upload[0]+"/"+upload[1];
         } catch (IOException e) {
             e.printStackTrace();

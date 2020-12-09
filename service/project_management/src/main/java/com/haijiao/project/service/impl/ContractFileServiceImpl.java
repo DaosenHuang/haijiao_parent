@@ -25,7 +25,7 @@ public class ContractFileServiceImpl extends ServiceImpl<ContractFileMapper, Con
     private ContractFileMapper contractFileMapper;
 
     //-------根据委托单编号查找与其对应的文件Id-------
-    public List<ContractFile> getContractFileByContractId(String contractId) {
+    public List<ContractFile> getContractFileByContractId(Integer contractId) {
 
         //-------构造条件-------
         QueryWrapper<ContractFile> queryWrapper = new QueryWrapper<>();

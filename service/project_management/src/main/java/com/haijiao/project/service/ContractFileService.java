@@ -16,7 +16,7 @@ import java.util.List;
 public interface ContractFileService extends IService<ContractFile> {
 
     //-------根据委托单ID查询对应的文件ID------
-    List<ContractFile> getContractFileByContractId(String contractId);
+    List<ContractFile> getContractFileByContractId(Integer contractId);
 
 
 
